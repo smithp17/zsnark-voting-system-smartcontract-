@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZK Private Voting System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .section:last-child {
+            border-bottom: none;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            transition: transform 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+        }
+
+        .results {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .result-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .label {
+            color: #666;
+            font-weight: 500;
+        }
+
+        .value {
+            color: #333;
+            font-weight: 600;
+        }
+
+        .status {
+            padding: 12px;
+            border-radius: 5px;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .status.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        .vote-options {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .vote-options button {
+            flex: 1;
+            margin: 0;
+        }
+
+        .nullifier-display {
+            background: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+            word-break: break-all;
+            font-family: monospace;
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔐 ZK Voting System</h1>
+        <p class="subtitle">Private voting with zero-knowledge proofs</p>
+
+        <!-- Session Management -->
+        <div class="section">
+            <h2 style="font-size: 18px; margin-bottom: 15px;">Create Voting Session</h2>
+            <label>Proposal ID:</label>
+            <input type="text" id="proposalId" placeholder="e.g., proposal-001" value="proposal-1">
+            <button onclick="createSession()">Create Session</button>
+            <div id="sessionStatus"></div>
+        </div>
+
+        <!-- Nullifier Generation -->
+        <div class="section">
+            <h2 style="font-size: 18px; margin-bottom: 15px;">Generate Your Nullifier</h2>
+            <label>Voter ID:</label>
+            <input type="text" id="voterId" placeholder="Your unique voter ID" value="voter-1">
+            <button onclick="generateNullifier()">Generate Nullifier</button>
+            <div id="nullifierStatus"></div>
+            <div id="nullifierDisplay"></div>
+        </div>
+
+        <!-- Voting -->
+        <div class="section">
+            <h2 style="font-size: 18px; margin-bottom: 15px;">Cast Your Vote</h2>
+            <div class="vote-options">
+                <button onclick="castVote(1)">✓ Yes</button>
+                <button onclick="castVote(0)">✗ No</button>
+            </div>
+            <div id="voteStatus"></div>
+        </div>
+
+        <!-- Results -->
+        <div class="section">
+            <h2 style="font-size: 18px; margin-bottom: 15px;">View Results</h2>
+            <button onclick="fetchResults()">Fetch Results</button>
+            <div id="resultsDisplay"></div>
+        </div>
+    </div>
+
+    <script>
+        let currentNullifier = null;
+        let currentProposalId = 'proposal-1';
+        let currentVote = null;
+
+        async function createSession() {
+            const proposalId = document.getElementById('proposalId').value;
+            if (!proposalId) {
+                showStatus('sessionStatus', 'Please enter a proposal ID', 'error');
+                return;
+            }
+
+            currentProposalId = proposalId;
+
+            try {
+                const response = await fetch('/api/session/create', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ proposalId })
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    showStatus('sessionStatus', `✓ Session created for: ${proposalId}`, 'success');
+                } else {
+                    showStatus('sessionStatus', 'Error creating session', 'error');
+                }
+            } catch (error) {
+                showStatus('sessionStatus', 'Error: ' + error.message, 'error');
+            }
+        }
+
+        async function generateNullifier() {
+            const voterId = document.getElementById('voterId').value;
+            if (!voterId) {
+                showStatus('nullifierStatus', 'Please enter your voter ID', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/nullifier/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ voterId })
+                });
+
+                const data = await response.json();
+                currentNullifier = data.nullifier;
+                showStatus('nullifierStatus', '✓ Nullifier generated', 'success');
+                document.getElementById('nullifierDisplay').innerHTML = 
+                    `<div class="nullifier-display">${currentNullifier}</div>`;
+            } catch (error) {
+                showStatus('nullifierStatus', 'Error: ' + error.message, 'error');
+            }
+        }
+
+        async function castVote(choice) {
+            if (!currentNullifier) {
+                showStatus('voteStatus', 'Please generate your nullifier first', 'error');
+                return;
+            }
+
+            const vote = {
+                nullifier: currentNullifier,
+                vote: choice,
+                proof: '0x' // Mock proof
+            };
+
+            try {
+                const response = await fetch('/api/vote/submit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        proposalId: currentProposalId,
+                        vote
+                    })
+                });
+
+                const data = await response.json();
+                const voteText = choice === 1 ? 'Yes' : 'No';
+                showStatus('voteStatus', `✓ Vote cast: ${voteText}`, 'success');
+            } catch (error) {
+                showStatus('voteStatus', 'Error: ' + error.message, 'error');
+            }
+        }
+
+        async function fetchResults() {
+            try {
+                const response = await fetch(`/api/results/${currentProposalId}`);
+                const data = await response.json();
+
+                let html = `
+                    <div class="results">
+                        <div class="result-row">
+                            <span class="label">Yes Votes:</span>
+                            <span class="value">${data.results.yes}</span>
+                        </div>
+                        <div class="result-row">
+                            <span class="label">No Votes:</span>
+                            <span class="value">${data.results.no}</span>
+                        </div>
+                        <div class="result-row">
+                            <span class="label">Total Votes:</span>
+                            <span class="value">${data.totalVotes}</span>
+                        </div>
+                    </div>
+                `;
+
+                document.getElementById('resultsDisplay').innerHTML = html;
+            } catch (error) {
+                showStatus('resultsDisplay', 'Error fetching results: ' + error.message, 'error');
+            }
+        }
+
+        function showStatus(elementId, message, type) {
+            const element = document.getElementById(elementId);
+            element.innerHTML = `<div class="status ${type}">${message}</div>`;
+        }
+    </script>
+</body>
+</html>
