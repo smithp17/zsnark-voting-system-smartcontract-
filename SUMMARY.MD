@@ -1,6 +1,6 @@
 # 🎯 ZK Voting System - Complete Summary
 
-## ✨ What You Built (In 1 Hour!)
+## ✨ What You Built 
 
 A **full-stack zero-knowledge voting system** that demonstrates:
 - Advanced cryptography (ZK-SNARKs)
