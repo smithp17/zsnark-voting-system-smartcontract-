@@ -1,6 +1,6 @@
 # Getting Started with ZK Voting System
 
-## ✅ What You've Built
+## ✅ What I've Built
 
 A **production-grade ZK-SNARK private voting system** with:
 - ✅ Solidity smart contracts (compiled & tested)
