@@ -15,115 +15,186 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            margin-bottom: 40px;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            padding: 20px;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            background: #4CAF50;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
         }
 
         .container {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-            max-width: 500px;
-            width: 100%;
-            padding: 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 50px;
         }
 
         h1 {
-            color: #333;
+            font-size: 48px;
             margin-bottom: 10px;
-            font-size: 28px;
+            font-weight: 800;
         }
 
         .subtitle {
-            color: #666;
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        @media (max-width: 1024px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            backdrop-filter: blur(10px);
+        }
+
+        .card h2 {
+            color: #333;
             margin-bottom: 30px;
-            font-size: 14px;
+            font-size: 24px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
         .section {
             margin-bottom: 30px;
-            padding-bottom: 30px;
-            border-bottom: 1px solid #eee;
         }
 
         .section:last-child {
-            border-bottom: none;
+            margin-bottom: 0;
         }
 
         label {
             display: block;
-            margin-bottom: 8px;
-            color: #333;
-            font-weight: 500;
+            margin-bottom: 10px;
+            color: #555;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         input {
             width: 100%;
-            padding: 12px;
+            padding: 14px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: all 0.3s ease;
             margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 14px;
         }
 
         input:focus {
             outline: none;
             border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+            background: #f8f9ff;
         }
 
         button {
+            width: 100%;
+            padding: 14px 20px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            padding: 12px 20px;
-            border-radius: 5px;
+            border-radius: 10px;
             cursor: pointer;
             font-weight: 600;
-            margin-right: 10px;
-            margin-bottom: 10px;
-            transition: transform 0.2s;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            margin-bottom: 15px;
         }
 
         button:hover {
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
         }
 
-        .results {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 5px;
-            margin-top: 15px;
-        }
-
-        .result-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            font-size: 16px;
-        }
-
-        .result-row:last-child {
-            margin-bottom: 0;
-        }
-
-        .label {
-            color: #666;
-            font-weight: 500;
-        }
-
-        .value {
-            color: #333;
-            font-weight: 600;
+        button:active {
+            transform: translateY(-1px);
         }
 
         .status {
-            padding: 12px;
-            border-radius: 5px;
-            margin-top: 10px;
+            padding: 14px 16px;
+            border-radius: 10px;
+            margin-bottom: 15px;
             font-size: 14px;
+            font-weight: 500;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .status.show {
+            display: block;
         }
 
         .status.success {
@@ -138,86 +209,346 @@
             border: 1px solid #f5c6cb;
         }
 
-        .status.info {
-            background: #d1ecf1;
-            color: #0c5460;
-            border: 1px solid #bee5eb;
+        .nullifier-display {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
+            padding: 14px 16px;
+            border-radius: 10px;
+            word-break: break-all;
+            font-family: 'Monaco', monospace;
+            font-size: 11px;
+            color: #555;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
         }
 
         .vote-options {
-            display: flex;
-            gap: 10px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
             margin-bottom: 15px;
         }
 
         .vote-options button {
-            flex: 1;
             margin: 0;
+            padding: 16px;
+            font-weight: 700;
+            font-size: 16px;
         }
 
-        .nullifier-display {
-            background: #f0f0f0;
-            padding: 10px;
-            border-radius: 5px;
-            word-break: break-all;
-            font-family: monospace;
+        .vote-yes {
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+        }
+
+        .vote-no {
+            background: linear-gradient(135deg, #f44336 0%, #da190b 100%);
+        }
+
+        .results-section {
+            grid-column: 1 / -1;
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            position: relative;
+        }
+
+        .search-box input {
+            margin-bottom: 0;
+            padding-left: 40px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+            font-size: 18px;
+        }
+
+        .refresh-btn {
+            width: auto;
+            padding: 14px 28px;
+            background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+            margin: 0;
+            white-space: nowrap;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            margin-top: 25px;
+        }
+
+        .result-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #ffffff 100%);
+            border-radius: 15px;
+            padding: 25px;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .result-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(102, 126, 234, 0.2);
+            border-color: #667eea;
+        }
+
+        .result-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .result-id {
             font-size: 12px;
-            color: #666;
+            color: #999;
+            margin-bottom: 18px;
+            font-family: 'Monaco', monospace;
+        }
+
+        .vote-bar-container {
             margin-bottom: 15px;
+        }
+
+        .vote-bar-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 6px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .vote-bar {
+            width: 100%;
+            height: 32px;
+            background: #e9ecef;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .vote-bar-fill {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 13px;
+            transition: width 0.5s ease;
+        }
+
+        .vote-yes-fill {
+            background: linear-gradient(90deg, #4CAF50 0%, #45a049 100%);
+        }
+
+        .vote-no-fill {
+            background: linear-gradient(90deg, #f44336 0%, #da190b 100%);
+        }
+
+        .result-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 18px;
+            padding-top: 18px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #667eea;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #999;
+            margin-top: 4px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        .empty-state-text {
+            font-size: 16px;
+            font-weight: 500;
         }
     </style>
 </head>
 <body>
+    <!-- Navigation -->
+    <div class="navbar">
+        <div class="logo">🔐 PrivateVote</div>
+        <div class="status-indicator">
+            <span class="dot"></span>
+            <span>System Online</span>
+        </div>
+    </div>
+
     <div class="container">
-        <h1>🔐 ZK Voting System</h1>
-        <p class="subtitle">Private voting with zero-knowledge proofs</p>
+        <!-- Header -->
+        <header>
+            <h1>Voting Dashboard</h1>
+            <p class="subtitle">Secure, private, and verifiable voting with zero-knowledge proofs</p>
+        </header>
 
-        <!-- Session Management -->
-        <div class="section">
-            <h2 style="font-size: 18px; margin-bottom: 15px;">Create Voting Session</h2>
-            <label>Proposal ID:</label>
-            <input type="text" id="proposalId" placeholder="e.g., proposal-001" value="proposal-1">
-            <button onclick="createSession()">Create Session</button>
-            <div id="sessionStatus"></div>
-        </div>
+        <!-- Main Content -->
+        <div class="main-grid">
+            <!-- LEFT: Session & Nullifier -->
+            <div>
+                <div class="card">
+                    <h2>📋 Create Voting Session</h2>
+                    
+                    <div class="section">
+                        <label>Proposal ID</label>
+                        <input type="text" id="proposalId" placeholder="e.g., proposal-001" value="proposal-1">
+                        <button onclick="createSession()">Create Session</button>
+                        <div id="sessionStatus" class="status"></div>
+                    </div>
+                </div>
 
-        <!-- Nullifier Generation -->
-        <div class="section">
-            <h2 style="font-size: 18px; margin-bottom: 15px;">Generate Your Nullifier</h2>
-            <label>Voter ID:</label>
-            <input type="text" id="voterId" placeholder="Your unique voter ID" value="voter-1">
-            <button onclick="generateNullifier()">Generate Nullifier</button>
-            <div id="nullifierStatus"></div>
-            <div id="nullifierDisplay"></div>
-        </div>
+                <div class="card" style="margin-top: 30px;">
+                    <h2>🗳️ Cast Your Vote</h2>
+                    
+                    <div class="section">
+                        <label>Your Voter ID</label>
+                        <input type="text" id="voterId" placeholder="Your unique voter ID" value="voter-1">
+                        <button onclick="generateNullifier()">Generate Nullifier</button>
+                        <div id="nullifierStatus" class="status"></div>
+                        <div id="nullifierDisplay"></div>
+                    </div>
 
-        <!-- Voting -->
-        <div class="section">
-            <h2 style="font-size: 18px; margin-bottom: 15px;">Cast Your Vote</h2>
-            <div class="vote-options">
-                <button onclick="castVote(1)">✓ Yes</button>
-                <button onclick="castVote(0)">✗ No</button>
+                    <div class="section">
+                        <label>Vote</label>
+                        <div class="vote-options">
+                            <button class="vote-yes" onclick="castVote(1)">✓ Yes</button>
+                            <button class="vote-no" onclick="castVote(0)">✗ No</button>
+                        </div>
+                        <div id="voteStatus" class="status"></div>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 30px;">
+                    <h2>📜 Previous Proposals</h2>
+                    
+                    <div class="section">
+                        <label>Select a Previous Proposal to Vote On</label>
+                        <select id="previousProposalSelect" style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 10px; margin-bottom: 15px; font-size: 15px; cursor: pointer;">
+                            <option value="">-- No previous proposals --</option>
+                        </select>
+                        <button onclick="selectPreviousProposal()">Select Proposal</button>
+                        <div id="previousProposalStatus" class="status"></div>
+                    </div>
+
+                    <div id="previousProposalInfo" style="display:none;">
+                        <div class="section" style="background: #f8f9ff; padding: 15px; border-radius: 10px; margin-bottom: 15px;">
+                            <p style="color: #667eea; font-weight: 600;">Selected: <span id="selectedProposalName"></span></p>
+                        </div>
+                        
+                        <div class="section">
+                            <label>Your Voter ID (can be different from earlier)</label>
+                            <input type="text" id="previousVoterId" placeholder="Your voter ID" value="voter-1">
+                            <button onclick="generatePreviousNullifier()">Generate Nullifier</button>
+                            <div id="previousNullifierStatus" class="status"></div>
+                            <div id="previousNullifierDisplay"></div>
+                        </div>
+
+                        <div class="section">
+                            <label>Vote on this Proposal</label>
+                            <div class="vote-options">
+                                <button class="vote-yes" onclick="castPreviousVote(1)">✓ Yes</button>
+                                <button class="vote-no" onclick="castPreviousVote(0)">✗ No</button>
+                            </div>
+                            <div id="previousVoteStatus" class="status"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div id="voteStatus"></div>
-        </div>
 
-        <!-- Results -->
-        <div class="section">
-            <h2 style="font-size: 18px; margin-bottom: 15px;">View Results</h2>
-            <button onclick="fetchResults()">Fetch Results</button>
-            <div id="resultsDisplay"></div>
+            <!-- RIGHT: Results -->
+            <div class="card results-section">
+                <h2>📊 Live Results</h2>
+                
+                <div class="results-header">
+                    <div class="search-box">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" id="searchInput" placeholder="Search proposal ID..." onkeyup="filterResults()">
+                    </div>
+                    <button class="refresh-btn" onclick="refreshResults()">🔄 Refresh</button>
+                </div>
+
+                <div id="resultsContainer" class="results-grid">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📭</div>
+                        <div class="empty-state-text">Create a session to see results</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
         let currentNullifier = null;
         let currentProposalId = 'proposal-1';
-        let currentVote = null;
+        let allResults = {};
+        let previousProposalId = null;
+        let previousNullifier = null;
+
+        // Load results from localStorage on page load
+        window.addEventListener('load', () => {
+            const saved = localStorage.getItem('votingResults');
+            if (saved) {
+                allResults = JSON.parse(saved);
+                refreshResults();
+                updatePreviousProposalsDropdown();
+            }
+        });
+
+        // Save results to localStorage
+        function saveResults() {
+            localStorage.setItem('votingResults', JSON.stringify(allResults));
+        }
+
+        function showStatus(elementId, message, type) {
+            const element = document.getElementById(elementId);
+            element.innerHTML = `<div class="status show ${type}">${message}</div>`;
+            if (type === 'success') {
+                setTimeout(() => element.innerHTML = '', 4000);
+            }
+        }
 
         async function createSession() {
-            const proposalId = document.getElementById('proposalId').value;
+            const proposalId = document.getElementById('proposalId').value.trim();
             if (!proposalId) {
-                showStatus('sessionStatus', 'Please enter a proposal ID', 'error');
+                showStatus('sessionStatus', '⚠️ Please enter a proposal ID', 'error');
                 return;
             }
 
@@ -232,19 +563,27 @@
 
                 const data = await response.json();
                 if (response.ok) {
-                    showStatus('sessionStatus', `✓ Session created for: ${proposalId}`, 'success');
+                    showStatus('sessionStatus', `✅ Session created: ${proposalId}`, 'success');
+                    
+                    // Initialize result for this proposal if not exists
+                    if (!allResults[proposalId]) {
+                        allResults[proposalId] = { yes: 0, no: 0 };
+                        saveResults();
+                    }
+                    updatePreviousProposalsDropdown();
+                    refreshResults();
                 } else {
-                    showStatus('sessionStatus', 'Error creating session', 'error');
+                    showStatus('sessionStatus', '❌ Error creating session', 'error');
                 }
             } catch (error) {
-                showStatus('sessionStatus', 'Error: ' + error.message, 'error');
+                showStatus('sessionStatus', '❌ Error: ' + error.message, 'error');
             }
         }
 
         async function generateNullifier() {
-            const voterId = document.getElementById('voterId').value;
+            const voterId = document.getElementById('voterId').value.trim();
             if (!voterId) {
-                showStatus('nullifierStatus', 'Please enter your voter ID', 'error');
+                showStatus('nullifierStatus', '⚠️ Please enter your voter ID', 'error');
                 return;
             }
 
@@ -257,24 +596,24 @@
 
                 const data = await response.json();
                 currentNullifier = data.nullifier;
-                showStatus('nullifierStatus', '✓ Nullifier generated', 'success');
+                showStatus('nullifierStatus', '✅ Nullifier generated', 'success');
                 document.getElementById('nullifierDisplay').innerHTML = 
-                    `<div class="nullifier-display">${currentNullifier}</div>`;
+                    `<div class="nullifier-display">🔐 ${currentNullifier}</div>`;
             } catch (error) {
-                showStatus('nullifierStatus', 'Error: ' + error.message, 'error');
+                showStatus('nullifierStatus', '❌ Error: ' + error.message, 'error');
             }
         }
 
         async function castVote(choice) {
             if (!currentNullifier) {
-                showStatus('voteStatus', 'Please generate your nullifier first', 'error');
+                showStatus('voteStatus', '⚠️ Generate your nullifier first', 'error');
                 return;
             }
 
             const vote = {
                 nullifier: currentNullifier,
                 vote: choice,
-                proof: '0x' // Mock proof
+                proof: '0x'
             };
 
             try {
@@ -289,43 +628,231 @@
 
                 const data = await response.json();
                 const voteText = choice === 1 ? 'Yes' : 'No';
-                showStatus('voteStatus', `✓ Vote cast: ${voteText}`, 'success');
+                showStatus('voteStatus', `✅ Vote cast: ${voteText}`, 'success');
+
+                // Update local results
+                if (!allResults[currentProposalId]) {
+                    allResults[currentProposalId] = { yes: 0, no: 0 };
+                }
+                allResults[currentProposalId] = {
+                    yes: data.yes || 0,
+                    no: data.no || 0
+                };
+                saveResults();
+                refreshResults();
             } catch (error) {
-                showStatus('voteStatus', 'Error: ' + error.message, 'error');
+                showStatus('voteStatus', '❌ Error: ' + error.message, 'error');
             }
         }
 
-        async function fetchResults() {
-            try {
-                const response = await fetch(`/api/results/${currentProposalId}`);
-                const data = await response.json();
+        function filterResults() {
+            const search = document.getElementById('searchInput').value.toLowerCase().trim();
+            displayResults(search);
+        }
 
-                let html = `
-                    <div class="results">
-                        <div class="result-row">
-                            <span class="label">Yes Votes:</span>
-                            <span class="value">${data.results.yes}</span>
+        async function refreshResults() {
+            // Fetch fresh results from backend for all proposals
+            for (const proposalId of Object.keys(allResults)) {
+                try {
+                    const response = await fetch(`/api/results/${proposalId}`);
+                    const data = await response.json();
+                    allResults[proposalId] = {
+                        yes: data.results.yes,
+                        no: data.results.no
+                    };
+                } catch (error) {
+                    console.error('Error fetching results for', proposalId);
+                }
+            }
+            saveResults();
+            displayResults('');
+        }
+
+        function displayResults(search = '') {
+            const container = document.getElementById('resultsContainer');
+            
+            if (Object.keys(allResults).length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📭</div>
+                        <div class="empty-state-text">Create a session to see results</div>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = '';
+            let count = 0;
+
+            for (const [proposalId, results] of Object.entries(allResults)) {
+                if (search && !proposalId.toLowerCase().includes(search)) {
+                    continue;
+                }
+                count++;
+
+                const total = results.yes + results.no;
+                const yesPercent = total > 0 ? (results.yes / total) * 100 : 0;
+                const noPercent = total > 0 ? (results.no / total) * 100 : 0;
+
+                let winner = '-';
+                if (total > 0) {
+                    winner = results.yes > results.no ? '✓ Yes' : results.no > results.yes ? '✗ No' : 'Tied';
+                }
+
+                html += `
+                    <div class="result-card">
+                        <div class="result-title">📌 ${proposalId}</div>
+                        <div class="result-id">ID: ${proposalId}</div>
+                        
+                        <div class="vote-bar-container">
+                            <div class="vote-bar-label">
+                                <span>Yes</span>
+                                <span>${results.yes} (${Math.round(yesPercent)}%)</span>
+                            </div>
+                            <div class="vote-bar">
+                                <div class="vote-bar-fill vote-yes-fill" style="width: ${yesPercent}%"></div>
+                            </div>
                         </div>
-                        <div class="result-row">
-                            <span class="label">No Votes:</span>
-                            <span class="value">${data.results.no}</span>
+
+                        <div class="vote-bar-container">
+                            <div class="vote-bar-label">
+                                <span>No</span>
+                                <span>${results.no} (${Math.round(noPercent)}%)</span>
+                            </div>
+                            <div class="vote-bar">
+                                <div class="vote-bar-fill vote-no-fill" style="width: ${noPercent}%"></div>
+                            </div>
                         </div>
-                        <div class="result-row">
-                            <span class="label">Total Votes:</span>
-                            <span class="value">${data.totalVotes}</span>
+
+                        <div class="result-stats">
+                            <div class="stat">
+                                <span class="stat-value">${total}</span>
+                                <span class="stat-label">Total Votes</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">${winner}</span>
+                                <span class="stat-label">Leading</span>
+                            </div>
                         </div>
                     </div>
                 `;
+            }
 
-                document.getElementById('resultsDisplay').innerHTML = html;
-            } catch (error) {
-                showStatus('resultsDisplay', 'Error fetching results: ' + error.message, 'error');
+            if (count === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">🔍</div>
+                        <div class="empty-state-text">No results found</div>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = html;
             }
         }
 
-        function showStatus(elementId, message, type) {
-            const element = document.getElementById(elementId);
-            element.innerHTML = `<div class="status ${type}">${message}</div>`;
+        // Update previous proposals dropdown
+        function updatePreviousProposalsDropdown() {
+            const select = document.getElementById('previousProposalSelect');
+            select.innerHTML = '<option value="">-- Select a proposal --</option>';
+            
+            const proposalIds = Object.keys(allResults);
+            if (proposalIds.length === 0) {
+                select.innerHTML = '<option value="">-- No proposals yet --</option>';
+                return;
+            }
+
+            proposalIds.forEach(id => {
+                const option = document.createElement('option');
+                option.value = id;
+                option.textContent = id;
+                select.appendChild(option);
+            });
+        }
+
+        // Select a previous proposal
+        function selectPreviousProposal() {
+            const proposalId = document.getElementById('previousProposalSelect').value;
+            if (!proposalId) {
+                showStatus('previousProposalStatus', '⚠️ Please select a proposal', 'error');
+                return;
+            }
+
+            previousProposalId = proposalId;
+            document.getElementById('selectedProposalName').textContent = proposalId;
+            document.getElementById('previousProposalInfo').style.display = 'block';
+            showStatus('previousProposalStatus', `✅ Selected: ${proposalId}`, 'success');
+        }
+
+        // Generate nullifier for previous proposal
+        async function generatePreviousNullifier() {
+            const voterId = document.getElementById('previousVoterId').value.trim();
+            if (!voterId) {
+                showStatus('previousNullifierStatus', '⚠️ Please enter your voter ID', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/nullifier/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ voterId })
+                });
+
+                const data = await response.json();
+                previousNullifier = data.nullifier;
+                showStatus('previousNullifierStatus', '✅ Nullifier generated', 'success');
+                document.getElementById('previousNullifierDisplay').innerHTML = 
+                    `<div class="nullifier-display">🔐 ${previousNullifier}</div>`;
+            } catch (error) {
+                showStatus('previousNullifierStatus', '❌ Error: ' + error.message, 'error');
+            }
+        }
+
+        // Cast vote on previous proposal
+        async function castPreviousVote(choice) {
+            if (!previousProposalId) {
+                showStatus('previousVoteStatus', '⚠️ Please select a proposal first', 'error');
+                return;
+            }
+
+            if (!previousNullifier) {
+                showStatus('previousVoteStatus', '⚠️ Generate your nullifier first', 'error');
+                return;
+            }
+
+            const vote = {
+                nullifier: previousNullifier,
+                vote: choice,
+                proof: '0x'
+            };
+
+            try {
+                const response = await fetch('/api/vote/submit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        proposalId: previousProposalId,
+                        vote
+                    })
+                });
+
+                const data = await response.json();
+                const voteText = choice === 1 ? 'Yes' : 'No';
+                showStatus('previousVoteStatus', `✅ Vote cast: ${voteText}`, 'success');
+
+                // Update local results
+                if (!allResults[previousProposalId]) {
+                    allResults[previousProposalId] = { yes: 0, no: 0 };
+                }
+                allResults[previousProposalId] = {
+                    yes: data.yes || 0,
+                    no: data.no || 0
+                };
+                saveResults();
+                refreshResults();
+            } catch (error) {
+                showStatus('previousVoteStatus', '❌ Error: ' + error.message, 'error');
+            }
         }
     </script>
 </body>
