@@ -57,13 +57,11 @@ app.post('/api/vote/submit', async (req, res) => {
   }
 });
 
-// Get results
+// Get results - FIXED
 app.get('/api/results/:proposalId', async (req, res) => {
   try {
     const { proposalId } = req.params;
-    const response = await axios.get(`${BACKEND_URL}/api/results`, {
-      params: { proposalId }
-    });
+    const response = await axios.get(`${BACKEND_URL}/api/results?proposalId=${proposalId}`);
     res.json(response.data);
   } catch (error) {
     console.error('Error fetching results:', error.message);
